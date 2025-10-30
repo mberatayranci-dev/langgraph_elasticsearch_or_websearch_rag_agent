@@ -1,0 +1,9 @@
+langchain
+langchain-openai
+langchain-community
+langgraph
+chromadb
+duckduckgo-search
+openai
+tiktoken
+python-dotenv

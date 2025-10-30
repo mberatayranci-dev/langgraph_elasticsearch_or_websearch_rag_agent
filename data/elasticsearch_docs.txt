@@ -1,0 +1,81 @@
+
+        Elasticsearch Nedir?
+        Elasticsearch, Apache Lucene tabanlı, açık kaynaklı, dağıtık bir arama ve analiz motorudur.
+        JSON tabanlı dökümanları indeksler ve gerçek zamanlı arama yapmanızı sağlar.
+        
+        Temel Özellikler:
+        - RESTful API ile kolay entegrasyon
+        - Gerçek zamanlı arama ve analiz
+        - Yatay ölçeklenebilirlik (horizontal scaling)
+        - Çoklu tenant desteği
+        - Tam metin arama (full-text search)
+        - Aggregation desteği ile güçlü analitik
+        
+        Kurulum:
+        1. Java 8 veya üzeri kurulmalıdır
+        2. Elasticsearch paketini resmi sitesinden indirin
+        3. Windows: bin/elasticsearch.bat, Linux/Mac: bin/elasticsearch komutu ile başlatın
+        4. Varsayılan olarak http://localhost:9200 adresinde çalışır
+        
+        Temel Konseptler:
+        - Index: İlişkili dökümanların koleksiyonu (SQL'deki database gibi)
+        - Document: JSON formatında veri (SQL'deki row gibi)
+        - Field: Döküman içindeki key-value çifti (SQL'deki column gibi)
+        - Mapping: Index'in şeması, field'ların tiplerini belirler
+        - Shard: Index'in parçaları, dağıtık yapıyı sağlar
+        - Replica: Shard'ların kopyaları, yedekleme ve okuma performansı sağlar
+        
+        Temel Kullanım:
+        - Index oluşturma: PUT /my-index
+        - Mapping tanımlama: PUT /my-index/_mapping
+        - Döküman ekleme: POST /my-index/_doc veya PUT /my-index/_doc/1
+        - Döküman güncelleme: POST /my-index/_update/1
+        - Döküman silme: DELETE /my-index/_doc/1
+        - Arama yapma: GET /my-index/_search
+        - Index silme: DELETE /my-index
+        
+        Query DSL:
+        Elasticsearch güçlü bir sorgu dili (Query DSL) sunar:
+        - Match Query: Tam metin araması için
+        - Term Query: Tam eşleşme araması için
+        - Range Query: Aralık sorguları için (tarih, sayı)
+        - Bool Query: Birden fazla sorguyu birleştirmek için (must, should, must_not)
+        - Wildcard Query: Joker karakterlerle arama
+        - Fuzzy Query: Benzer terimleri bulma
+        
+        Aggregations:
+        Veri analitiği için güçlü aggregation'lar:
+        - Metric Aggregations: avg, sum, min, max, stats
+        - Bucket Aggregations: terms, date_histogram, range
+        - Pipeline Aggregations: Aggregation sonuçları üzerinde işlem
+        
+        Örnek Sorgu:
+```json
+        GET /products/_search
+        {
+          "query": {
+            "bool": {
+              "must": [
+                { "match": { "name": "laptop" } }
+              ],
+              "filter": [
+                { "range": { "price": { "gte": 500, "lte": 1500 } } }
+              ]
+            }
+          },
+          "aggs": {
+            "avg_price": {
+              "avg": { "field": "price" }
+            }
+          }
+        }
+```
+        
+        Performans İpuçları:
+        - Mapping'leri doğru tanımlayın
+        - Gereksiz field'ları _source'tan çıkarın
+        - Bulk API ile toplu işlemler yapın
+        - Shard sayısını doğru belirleyin
+        - Replica sayısını ihtiyaca göre ayarlayın
+        - Filter context kullanarak sorgu cache'den faydalanın
+        
